@@ -60,6 +60,22 @@ public class Board {
     public boolean positionExists(Position position) {
     	return positionExists(position.getRow(), position.getColumn());
     }
+    public Piece removePiece(Position position) {
+    	
+    	if(!positionExists(position)){
+    		throw new BoardException("Não existe essa posição no tabuleiro!");
+    	}
+    	
+    	if(piece(position)== null) {
+    		return null;
+    	}
+    	
+    	Piece aux = piece(position);
+    	aux.position = null;
+    	pieces[position.getRow()][position.getColumn()] = null;
+    	return aux;
+    	
+    }
     public boolean thereIsAPiece(Position position) {
     	if(!positionExists(position)) {
 			throw new BoardException("Não existe essa posição no tabuleiro");
