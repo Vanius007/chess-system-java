@@ -25,7 +25,6 @@ public class Program {
 				System.out.println();
 				System.err.println("Posição Final:");
 				ChessPosition target = UI.readChessPosition(sc);
-				@SuppressWarnings("unused")
 				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
 			} catch (ChessException e) {
 				System.out.println(e.getMessage());
