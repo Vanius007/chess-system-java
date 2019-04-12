@@ -32,14 +32,14 @@ public class UI {
 	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-	
+
 	public static void clearScreen() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
 	}
-	
+
 	public static ChessPosition readChessPosition(Scanner sc) {
-		
+
 		try {
 			String s = sc.nextLine();
 			char column = s.charAt(0);
@@ -48,9 +48,9 @@ public class UI {
 		} catch (RuntimeException e) {
 			throw new InputMismatchException("Erro na leitura da posição do xadrez. Valores validos são de A1 até H8.");
 		}
-		
+
 	}
-	
+
 	public static void printMatch(ChessMatch chessMatch, List<ChessPiece> captured) {
 		printBoard(chessMatch.getPieces());
 		System.out.println();
@@ -58,11 +58,17 @@ public class UI {
 		printCapturedPieces(captured);
 		System.out.println();
 		System.out.println("Turno : " + chessMatch.getTurn());
-		System.out.println("Aguardando Jogador: "+ chessMatch.getCurrentPlayer());
-		if(chessMatch.getCheck()) {
-			System.out.println("CHECK!");
+		if (!chessMatch.getCheckMate()) {
+			System.out.println("Aguardando Jogador: " + chessMatch.getCurrentPlayer());
+			if (chessMatch.getCheck()) {
+				System.out.println("CHECK!");
+			}
+
+		}else {
+			System.out.println("CHECKMATE!");
+			System.out.println("Vencedor: "+ chessMatch.getCurrentPlayer());
 		}
-		
+
 	}
 
 	public static void printBoard(ChessPiece[][] pieces) {
@@ -79,20 +85,19 @@ public class UI {
 	}
 
 	private static void printPieces(ChessPiece piece, boolean backGround) {
-		
-		if(backGround) {
+
+		if (backGround) {
 			System.out.print(ANSI_BLUE_BACKGROUND);
 		}
 
 		if (piece == null) {
 			System.out.print("-" + ANSI_RESET);
 		} else {
-		    if (piece.getColor() == Color.WHITE) {
-                System.out.print(ANSI_WHITE + piece + ANSI_RESET);
-            }
-            else {
-                System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
-            }
+			if (piece.getColor() == Color.WHITE) {
+				System.out.print(ANSI_WHITE + piece + ANSI_RESET);
+			} else {
+				System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
+			}
 		}
 		System.out.print(" ");
 
@@ -108,13 +113,15 @@ public class UI {
 			System.out.println();
 		}
 		System.out.println("  a b c d e f g h");
-		
+
 	}
-	
+
 	private static void printCapturedPieces(List<ChessPiece> captured) {
-		
-		List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE).collect(Collectors.toList());
-		List<ChessPiece> black = captured.stream().filter(x -> x.getColor() == Color.BLACK).collect(Collectors.toList());
+
+		List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE)
+				.collect(Collectors.toList());
+		List<ChessPiece> black = captured.stream().filter(x -> x.getColor() == Color.BLACK)
+				.collect(Collectors.toList());
 		System.out.println("Peças capturadas:");
 		System.out.println("Brancas");
 		System.out.print(ANSI_WHITE);
