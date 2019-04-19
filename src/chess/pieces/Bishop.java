@@ -31,7 +31,7 @@ public class Bishop extends ChessPiece {
 			p.setValues(p.getRow() -1, p.getColumn() -1);
 		}
 
-		if (getBoard().positionExists(p) && isTherOpponentPiece(p)) {
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRow()][p.getColumn()] = true;
 		}
 
@@ -42,7 +42,7 @@ public class Bishop extends ChessPiece {
 			p.setValues(p.getRow() -1, p.getColumn() +1);
 		}
 
-		if (getBoard().positionExists(p) && isTherOpponentPiece(p)) {
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRow()][p.getColumn()] = true;
 		}
 
@@ -53,7 +53,7 @@ public class Bishop extends ChessPiece {
 			p.setValues(p.getRow() +1, p.getColumn() +1);
 		}
 
-		if (getBoard().positionExists(p) && isTherOpponentPiece(p)) {
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRow()][p.getColumn()] = true;
 		}
 		
@@ -64,7 +64,7 @@ public class Bishop extends ChessPiece {
 			p.setValues(p.getRow() +1, p.getColumn() -1);
 		}
 
-		if (getBoard().positionExists(p) && isTherOpponentPiece(p)) {
+		if (getBoard().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRow()][p.getColumn()] = true;
 		}
 
